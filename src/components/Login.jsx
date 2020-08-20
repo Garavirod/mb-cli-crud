@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
 import axios from "axios";
 import Link from '@material-ui/core/Link';
-import Registro from "./Registro";
+import swal from 'sweetalert';
 
 function Copyright() {
   return (
@@ -90,10 +90,13 @@ export default function SignInSide() {
         })
         .then((res) => {
           if (res.data.success === true) {
-            alert("User logged succesfully!");
-            console.log(res.data);
+            swal("Acceso permitido", "Bienvenido", "success"); 
+            localStorage.setItem('statusUser',JSON.stringify(res.data.data))
+            setInterval(function(){ 
+                window.location.replace("/accessmb");
+            }, 1000);                                
           } else {
-            alert("No se logueo", res.data);
+            swal("Acceso denegado", "Verifica tus credenciales", "error");
             console.log(res.data);
           }
         })

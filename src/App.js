@@ -1,38 +1,47 @@
-import React,{useState} from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  NavLink
+  Redirect,
 } from "react-router-dom";
-import Login from './components/Login';
-import Registro from './components/Registro';
-import Welcome from './components/Welcome';
+import Login from "./components/Login";
+import Registro from "./components/Registro";
+import Welcome from "./components/Welcome";
+import swal from "sweetalert";
 
+const isAuthenticated = () => {
+  let status = localStorage.getItem("statusUser");
+  return status ? true : false;
+};
 
-function AccessContent(props){
-  const logged = props.isLoggedIn;
-  if(!logged){
-    return <Login/>
-  }else{
-    return <Welcome/>
-  }
-}
+// Props is = path='/accessmb' component={Welcome} exact
+const ProtectedRoute = (props) => {
+  return isAuthenticated() ? <Route {...props} /> : <Redirect to="/" />;
+};
+
+const Logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("statusUser");
+  swal("Cesión cerrada", "Bye", "success");
+  setInterval(function () {
+  }, 2000);
+  return <Redirect to="/" />;
+};
 
 function App() {
   return (
-      <React.Fragment>   
-        <Router>
+    <React.Fragment>
+      <Router>
         <Switch>
-          <Route path='/' component={Login} exact />
-          <Route path='/Welcome' component={Welcome} exact />
-          <Route path='/registro' component={Registro} exact />
+          <Route path="/" component={Login} exact />
+          <Route path="/registro" component={Registro} exact />
+          <Route path="/logout" component={Logout} exact />
+          <ProtectedRoute path="/accessmb" component={Welcome} exact />
         </Switch>
-      </Router>             
-        {/* <AccessContent isLoggedIn={false}/> */}
-      </React.Fragment>
+      </Router>
+    </React.Fragment>
   );
 }
 

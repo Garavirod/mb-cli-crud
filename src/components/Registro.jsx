@@ -14,6 +14,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from 'axios';
+import swal from 'sweetalert';
 
 function Copyright() {
   return (
@@ -95,14 +96,16 @@ export default function SignInSide() {
         .post(url, newUser)
         .then((res) => {
           if (res.data.success === true) {
-            alert("User register succesfully!");
-            console.log(res.data);
-            localStorage.setItem('statusUser', {
-                token: res.data.token,
-                isLogin: false,
-            }); //Guardadmos en el sotrage                        
+            swal("Usuario Registrado exitosamente", "Inicia sesión", "success"); 
+            setInterval(function(){ 
+                localStorage.setItem('tokenMB', res.data.token);                      
+                window.location.replace("/");
+            }, 2000);
+            console.log(res.data);           
           } else {
-            alert(res.data.message);
+            swal("Error al crear usuario", "Verifica los datos o intente otra vez", "error");
+            console.log(res.data);
+            // alert(res.data.message);
           }
         })
         .catch((err) => {
