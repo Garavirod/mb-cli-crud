@@ -84,7 +84,7 @@ export default function SignInSide() {
 
   const sendData = (e) => {
     e.preventDefault();
-    const url = "http://localhost:5000/users/register";
+    const url = "https://api-mb-v1.herokuapp.com/users/register";
     if (
       newUser.name !== "" &&
       newUser.lastname !== "" &&
