@@ -16,6 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import axios from 'axios';
 import swal from 'sweetalert';
 
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -179,7 +180,7 @@ export default function SignInSide() {
             />
             <div>
               <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="age-native-simple">Age</InputLabel>
+                <InputLabel htmlFor="age-native-simple">Rol</InputLabel>
                 <Select
                   native
                   defaultValue=""
@@ -189,7 +190,7 @@ export default function SignInSide() {
                     id: "age-native-simple",
                   }}
                 >
-                  <option aria-label="None" value="" />
+                  <option aria-label="None" defaultValue="..." />
                   <option value={"JUDE"}>JUDE</option>
                   <option value={"MantE"}>MantE</option>
                   <option value={"Cuda"}>Cuda</option>
@@ -213,7 +214,7 @@ export default function SignInSide() {
               </Grid>
               <Grid item>
                 <Link href="/" variant="body2">
-                  {"¿Ya tienes cuenta?"}
+                  {"¿Ya tienes cuenta? Accede aquí"}
                 </Link>
               </Grid>
             </Grid>
